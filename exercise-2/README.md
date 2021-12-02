@@ -1,6 +1,10 @@
 # Login Form
 
-Live preview: http://tashima.rocks
+Live preview: http://tbx.tashima.rocks
+
+Demo users: 
+  * jotaro - 123456
+  * jolyne - 123456
 
 ## API Reference
 
