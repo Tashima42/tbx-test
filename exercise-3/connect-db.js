@@ -5,19 +5,17 @@ main()
 
 async function main() {
   // MONGODB
-  const client = await connectDb("mongodb://localhost", 27017, true)
-  const db = client.db("test");
+  const mongoClient = await connectDb("mongodb://localhost", 27017, true)
+  const db = mongoClient.db("test");
   const collection = db.collection("test");
   const result = await collection.find({}).toArray();
   console.log(result)
   // MYSQL
-  /*
-  const client = await connectDb("127.0.0.1", 3306, false)
-  client.query(
+  const mySqlClient = await connectDb("127.0.0.1", 3306, false)
+  mySqlClient.query(
     'SELECT * FROM plano;',
     (err, results, fields) => console.log(results)
   )
-  */
 }
 
 async function connectDb(ip, port, isMongoConnection) {
