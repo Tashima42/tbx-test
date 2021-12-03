@@ -165,20 +165,24 @@
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <input type="text" id="login" class="first" name="login" placeholder="username">
-      <input type="password" id="password" class="third" name="login" placeholder="password">
-      <input type="submit" class="fadeIn fourth" value="Log In" onclick="login()">
+      <input type="password" id="password" class="third" name="login" placeholder="password" onKeyPress="pressEnter(event)">
+      <input type="submit" class="fadeIn fourth sendButton" value="Log In" onclick="login()">
     </div>
   </div>
   <script type="text/javascript">
+    function pressEnter(event) {
+	  if (event.keyCode == 13 || event.which == 13)
+	    login()
+    }
     function login() {
 	  const username = $("input[type=text]").val()
 	  const password = $("input[type=password]").val()
 	  if(!username) {
-		alert("Invalid username")
+		showError("Username can't be empty")
 		return
 	  }
 	  if(!password) {
-		alert("Invalid password")
+		showError("Password can't be empty")
 		return
 	  }
 	  $.ajax({
@@ -190,23 +194,25 @@
 		},
 	      }).done((message) => {
 		    $(".wrapper").html(`<h1>${message}</h1>`)
-		    redirectAfter("https://dummy.tbxnet.com", 2000)
-		  }).fail((error) => { 
-			console.log(error)
+		    redirectAfter(`https://dummy.tbxnet.com?username=${username}`, 2000)
+		  }).fail(function (error) { 
 			if(error.status === 401) {
-			      alert("Wrong password")
+			      showError(`Invalid password for user ${username}`)
 			      return
 			    }
 			if(error.status === 404) {
-			      alert("Username not found")
+			      showError("Username not found")
 			      return
 			    }
-			alert(`Error: ${error}`)
+			showError("Unexpected error")
 			return
 		      })
     }
     function redirectAfter(redirectTo, timeInMillis) {
       setTimeout(() => {window.location.href = redirectTo;}, timeInMillis); 
+    }
+    function showError(error) {
+      $(".wrapper").html(`<h1 style="color:red;">${error}</h1><br><input type="submit" onclick="location.reload()" value="Go back">`)
     }
   </script>
 </body>
