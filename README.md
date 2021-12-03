@@ -6,7 +6,7 @@ Project Documentation: https://github.com/Tashima42/tbx-test/blob/main/exercise-
 
 ## Exercise 2
 Live demo: http://tbx.tashima.rocks/
-Code and API Reference: https://github.com/Tashima42/tbx-test/tree/main/exercise-2#readme
+Mock users, Code and API Reference: https://github.com/Tashima42/tbx-test/tree/main/exercise-2#readme
 
 ## Exercise 3
 Code: https://github.com/Tashima42/tbx-test/blob/main/exercise-3/connect-db.js
