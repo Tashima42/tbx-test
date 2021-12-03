@@ -9,7 +9,7 @@ const mysql = require("mysql2")
  * 	a MongoDB database, if false, it will try to connect to a MySQL Database
  * @return {Object} - The client that accepts commands to execute in the database
  */
-async function connectDb(ip, port, isMongoConnection) {
+async function connectBd(ip, port, isMongoConnection) {
   if(isMongoConnection) {
     return await connectMongoDb(ip, port)
   }     
@@ -20,13 +20,13 @@ main()
 
 async function main() {
   // MONGODB
-  const mongoClient = await connectDb("mongodb://localhost", 27017, true)
+  const mongoClient = await connectBd("mongodb://localhost", 27017, true)
   const db = mongoClient.db("test");
   const collection = db.collection("test");
   const result = await collection.find({}).toArray();
   console.log(result)
   // MYSQL
-  const mySqlClient = await connectDb("127.0.0.1", 3306, false)
+  const mySqlClient = await connectBd("127.0.0.1", 3306, false)
   mySqlClient.query(
     'SELECT * FROM x$waits_global_by_latency;',
     (err, results, fields) => console.log(results)
